@@ -7,6 +7,12 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
+dbuser = os.environ.get('DBUSER')
+dbpass = os.environ.get('DBPASS')
+dbhost = os.environ.get('DBHOST')
+dbname = os.environ.get('DBNAME')
+
+
 @app.route('/')
 def index():
     return "Temperature API"
@@ -14,12 +20,12 @@ def index():
 
 @app.route('/temperatures')
 def temperatures():
-    return "List of temperatures"
+    return f"List of temperatures - {dbhost}"
    
     
 @app.route('/sensors')
 def sensors():
-    return "List of sensors"
+    return f"List of sensors - {dbname}"
 
 
 if __name__ == '__main__':
