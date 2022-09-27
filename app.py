@@ -11,14 +11,14 @@ def index():
     return "Temperature API"
   
 
-@app.route('/temperatures'
+@app.route('/temperatures')
 def temperatures():
     return "List of temperatures"
    
     
-@app.route('/temperature-data/sensors')
+@app.route('/sensors')
 def sensors():
-    return "Sensors"
+    return "List of sensors"
 
 
 if __name__ == '__main__':
