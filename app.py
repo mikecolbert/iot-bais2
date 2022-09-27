@@ -17,8 +17,9 @@ dbconfig = {
     'user' : dbuser, 
     'password' : dbpass, 
     'db' : dbname, 
-    'client_flags': [pymysql.connector.ClientFlag.SSL],
-    'ssl_ca': './DigiCertGlobalRootG2.crt.pem'
+    #'client_flags': [mysql.connector.ClientFlag.SSL],
+    'ssl_ca': './DigiCertGlobalRootG2.crt.pem',
+    'cursorclass' : pymysql.cursors.DictCursor
 }
 
 @app.route('/')
@@ -28,22 +29,11 @@ def index():
 
 @app.route('/temperatures')
 def temperatures():
-    return "List of temperatures"
-   
-# GET request
-    try:
-        conn = pymysql.connector.connect(**config)
-                
-    except pymysql.connector.Error as err:
-        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Something is wrong with the user name or password")
-        elif err.errno == errorcode.ER_BAD_DB_ERROR:
-            print("Database does not exist")
-        else:
-            print(err)
-    else:
-        cur = conn.cursor()
-    #cur = conn.cursor()
+    
+    # GET request
+    conn = pymysql.connect(**dbconfig)
+
+    cur = conn.cursor()
 
     query = "SELECT * FROM temperaturelog ORDER BY readTime DESC"
     cur.execute(query)
@@ -59,7 +49,7 @@ def temperatures():
 
     conn.close()
             
-    return (results)
+    return results
 
 
 @app.route('/sensors')
