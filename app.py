@@ -23,7 +23,7 @@ dbconfig = {
 
 @app.route('/')
 def index():
-    return "Temperature API"
+    return "Temperature API: /temperatures & /sensors"
   
 
 @app.route('/temperatures', methods=['GET', 'POST'])
